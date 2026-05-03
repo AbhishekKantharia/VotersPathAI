@@ -1,4 +1,5 @@
 // ── Firebase Cloud Functions Entry Point (Updated for force deploy) ──
+require('dotenv').config();
 const { onRequest } = require('firebase-functions/v2/https');
 const { setGlobalOptions } = require('firebase-functions/v2');
 
