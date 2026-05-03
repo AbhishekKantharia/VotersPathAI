@@ -43,6 +43,7 @@ connectDB();
 //   removes X-Powered-By, adds CSP headers to prevent XSS attacks
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
+  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' }, // Allow Google Auth popup
   contentSecurityPolicy: false, // Allow inline scripts for React
 }));
 app.use(mongoSanitize()); // Layer 2: Prevent NoSQL injection ($ne, $gt attacks)
