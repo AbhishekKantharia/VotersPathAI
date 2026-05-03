@@ -16,17 +16,28 @@ let firebaseInitialized = false;
 
 if (!admin.apps.length) {
   try {
-    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    if (process.env.GCP_PROJECT_ID && process.env.GCP_CLIENT_EMAIL && process.env.GCP_PRIVATE_KEY) {
+      // Direct credentials from environment variables (Hackathon friendly)
+      admin.initializeApp({
+        credential: admin.credential.cert({
+          projectId: process.env.GCP_PROJECT_ID,
+          clientEmail: process.env.GCP_CLIENT_EMAIL,
+          privateKey: process.env.GCP_PRIVATE_KEY.replace(/\\n/g, '\n'),
+        }),
+      });
+      firebaseInitialized = true;
+      console.log('🔥 Firebase Admin initialized with explicit service account keys');
+    } else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
       // Full service account credentials (recommended for production)
       admin.initializeApp({
         credential: admin.credential.applicationDefault(),
       });
       firebaseInitialized = true;
       console.log('🔥 Firebase Admin initialized with service account credentials');
-    } else if (process.env.FIREBASE_PROJECT_ID) {
+    } else if (process.env.FIREBASE_PROJECT_ID || process.env.GCP_PROJECT_ID) {
       // Project ID only — verifyIdToken may not work without proper credentials
       admin.initializeApp({
-        projectId: process.env.FIREBASE_PROJECT_ID,
+        projectId: process.env.FIREBASE_PROJECT_ID || process.env.GCP_PROJECT_ID,
       });
       firebaseInitialized = true;
       console.log('🔥 Firebase Admin initialized with project ID (limited mode)');
