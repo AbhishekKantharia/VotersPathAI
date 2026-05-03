@@ -139,14 +139,6 @@ const login = asyncHandler(async (req, res) => {
 // POST /api/auth/google — Firebase Google Sign-In
 // ─────────────────────────────────────────────────────────
 const googleAuth = asyncHandler(async (req, res) => {
-  // Check if Firebase Admin is properly configured
-  if (!firebaseInitialized) {
-    return res.status(503).json({
-      success: false,
-      error: 'Google Sign-In is not available. Firebase Admin SDK is not configured on the server. Please use email/password authentication.',
-    });
-  }
-
   const { idToken } = req.body;
 
   if (!idToken) {

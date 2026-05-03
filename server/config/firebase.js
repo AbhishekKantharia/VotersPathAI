@@ -34,15 +34,12 @@ if (!admin.apps.length) {
       });
       firebaseInitialized = true;
       console.log('🔥 Firebase Admin initialized with service account credentials');
-    } else if (process.env.FIREBASE_PROJECT_ID || process.env.GCP_PROJECT_ID) {
-      // Project ID only — verifyIdToken may not work without proper credentials
+    } else {
       admin.initializeApp({
-        projectId: process.env.FIREBASE_PROJECT_ID || process.env.GCP_PROJECT_ID,
+        projectId: process.env.FIREBASE_PROJECT_ID || process.env.GCP_PROJECT_ID || 'election-a2234',
       });
       firebaseInitialized = true;
-      console.log('🔥 Firebase Admin initialized with project ID (limited mode)');
-    } else {
-      console.warn('⚠️  Firebase Admin not configured — Google Sign-In via Firebase will be disabled');
+      console.log('🔥 Firebase Admin initialized with fallback project ID');
     }
   } catch (error) {
     console.error('❌ Firebase Admin initialization failed:', error.message);
