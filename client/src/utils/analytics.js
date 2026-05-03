@@ -12,6 +12,10 @@ export const trackPageView = (path) => {
   trackEvent('page_view', { page_path: path });
 };
 
+export const trackLogin = (method) => {
+  trackEvent('login', { method });
+};
+
 export const trackChatMessage = (userId, query, category) => {
   trackEvent('ai_chat_query', {
     user_id: userId,

@@ -18,7 +18,7 @@ export const getHealth = () => api.get('/health');
 // Auth
 export const authLogin = (credentials) => api.post('/auth/login', credentials);
 export const authRegister = (userData) => api.post('/auth/register', userData);
-export const authGoogleLogin = (token) => api.post('/auth/google', { token });
+export const authGoogle = (token) => api.post('/auth/google', { token });
 export const authGetMe = () => api.get('/auth/me');
 export const authUpdateProfile = (profileData) => api.put('/auth/complete-profile', profileData);
 
@@ -28,6 +28,7 @@ export const getChatHistory = (userId) => api.get(`/chat/history/${userId}`);
 export const getJourney = (userId) => api.get(`/journey/${userId}`);
 export const getTimeline = (userId) => api.get(`/timeline/${userId}`);
 export const getBoothGuide = (data) => api.post('/booth', data);
+export const getScenarios = () => api.get('/scenario');
 export const runScenario = (data) => api.post('/scenario', data);
 export const getQuiz = () => api.get('/quiz');
 export const submitQuiz = (data) => api.post('/quiz/submit', data);
@@ -35,7 +36,7 @@ export const translateText = (text, targetLanguage) => api.post('/translate', { 
 
 // User data
 export const getChecklist = (userId) => api.get(`/checklist/${userId}`);
-export const updateChecklist = (data) => api.post('/checklist/update', data);
+export const updateChecklistItem = (data) => api.post('/checklist/update', data);
 
 // Analytics
 export const getUserInsights = (userId) => api.get(`/analytics/insights/${userId}`);
